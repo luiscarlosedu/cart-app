@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
-import { api } from '../../services/api';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+
+import { api } from '../../services/api';
+
 import { 
     Container,
     Title, 
@@ -21,9 +23,20 @@ import {
 
 import { Header } from "../../components/HomeHeader";
 import { ContainerComponent } from "../../components/ContainerComponent";
+import { ProductComponent } from "../../components/ProductComponent";
 
 export default function Home() {
+    const [products, setProducts] = useState([]);
 
+    useEffect(() => {
+        loadProducts();
+    }, []);
+
+    async function loadProducts() {
+        const productsRequest = await api.get('/produtos');
+        setProducts(productsRequest.data);
+    }
+    
     return (
             <ContainerComponent>
                 <Container>
@@ -50,20 +63,14 @@ export default function Home() {
                         </InfoView>
 
                         <ProductsAreaContainer>
-                            {/* <ProductList
+                            <ProductList
                                 scrollEnabled={false}
-                                data={data}
+                                data={products}
                                 keyExtractor={item => item.id}
                                 renderItem={({ item }) => {
-                                    return (
-                                        <View>
-                                            <Text>
-
-                                            </Text>
-                                        </View>
-                                    );
+                                    return <ProductComponent data={item} />;
                                 }}
-                            /> */}
+                            />
                         </ProductsAreaContainer>
 
                     </ContentScrollView>
