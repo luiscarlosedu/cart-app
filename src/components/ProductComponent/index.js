@@ -1,8 +1,16 @@
-import React, {useEffect} from "react";
-import { View } from "react-native";
+import React from "react";
+import { View, Text, Image } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import { 
+    Box
+} from "./styles";
 
-export function ProductComponent({data}) {
+export function ProductComponent({ data }) {
     return (
-        <View />
+        <Box>
+            <Text>
+                {data.name}
+            </Text>
+        </Box>
     );
 }

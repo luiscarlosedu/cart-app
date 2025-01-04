@@ -60,7 +60,9 @@ export const AddProductButtonText = styled.Text`
 `;
 
 export const ProductsAreaContainer = styled.View`
-    
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 `;
 
 export const ProductList = styled.FlatList`

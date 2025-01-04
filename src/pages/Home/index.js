@@ -65,11 +65,15 @@ export default function Home() {
                         <ProductsAreaContainer>
                             <ProductList
                                 scrollEnabled={false}
+                                numColumns={2}
                                 data={products}
                                 keyExtractor={item => item.id}
-                                renderItem={({ item }) => {
-                                    return <ProductComponent data={item} />;
+                                renderItem={({ item }) => <ProductComponent data={item}/>}
+                                columnWrapperStyle={{
+                                    justifyContent: 'space-between',
+                                    gap: 5  // Ajusta o gap horizontal entre os itens
                                 }}
+                                ItemSeparatorComponent={() => <View style={{ height: 20, width: 10 }} />}
                             />
                         </ProductsAreaContainer>
 
