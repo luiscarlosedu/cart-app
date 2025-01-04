@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-    margin-top: 45px;
+    margin-top: 38px;
     width: 100%;
     height: 70px;
     justify-content: space-between;
@@ -20,6 +20,8 @@ export const ImgBox = styled.View`
     height: 50px;
     background-color: #7e33f7;
     border-radius: 35%;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const PerfilBox = styled.View`
@@ -31,7 +33,7 @@ export const Name = styled.Text`
 `;
 
 export const ProfName = styled.Text`
-
+    font-family:'Inter_400Regular';
 `;
 
 

@@ -60,7 +60,6 @@ export default function AppRoutes(){
                 tabBarStyle: {
                     backgroundColor: '#f2f2f2',
                     borderTopWidth: 0,
-                    
                 },
                 
                 sceneStyle: {

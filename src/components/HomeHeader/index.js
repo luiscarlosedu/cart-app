@@ -15,7 +15,9 @@ export function Header() {
     return (
         <Container>
             <Perfil>
-                <ImgBox></ImgBox>
+                <ImgBox>
+                    <FontAwesome style={{textAlign: 'center'}} name="user" size={25} color={"#fff"} />
+                </ImgBox>
                 <PerfilBox>
                     <Name>Luís Eduardo</Name>
                     <ProfName>Desenvolvedor</ProfName>
