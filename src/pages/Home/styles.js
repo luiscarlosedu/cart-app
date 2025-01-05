@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export const Container = styled.View`
     flex: 1;
@@ -66,7 +65,7 @@ export const ProductsAreaContainer = styled.View`
 `;
 
 export const ProductList = styled.FlatList`
-
+    
 `;
 
 

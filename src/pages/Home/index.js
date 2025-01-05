@@ -73,7 +73,7 @@ export default function Home() {
                                     justifyContent: 'space-between',
                                     gap: 5  // Ajusta o gap horizontal entre os itens
                                 }}
-                                ItemSeparatorComponent={() => <View style={{ height: 20, width: 10 }} />}
+                                ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
                             />
                         </ProductsAreaContainer>
 
