@@ -10,7 +10,7 @@ export const ItemView = styled.View`
 
 export const ItemImage = styled.Image`
     width: 100%;
-    background-color: red;
+    background-color:rgb(162, 162, 162);
     height: 45%;
     border-radius: 8px 8px 0px 0px;
 `;
