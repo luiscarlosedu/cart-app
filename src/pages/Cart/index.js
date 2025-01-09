@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -14,7 +15,16 @@ import {
     AddProductCartButton,
     AddProductCartButtonText,
     ProductsAddedContainer,
-    ProductsAddedList
+    ProductsAddedList,
+    TotalCartContainer,
+    TotalCart,
+    TotalLabel,
+    Total,
+    ButtonCartPurchase,
+    ButtonCartPurchaseText,
+    CupomArea,
+    CupomButton,
+    CupomButtonText
 } from "./style";
 
 import { ContainerComponent } from "../../components/ContainerComponent";
@@ -31,13 +41,13 @@ export default function Cart() {
             "description": "Teclado mecânico compacto com iluminação RGB personalizável, ideal para jogos e produtividade.",
             "image": "https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg"
           },
-        //   {
-        //     "id": 2,
-        //     "name": "Teclado Ergonômico Avançado",
-        //     "price": 399.99,
-        //     "description": "Teclado ergonômico com teclas silenciosas e design confortável para longas horas de uso.",
-        //     "image": "https://images.pexels.com/photos/7915211/pexels-photo-7915211.jpeg"
-        //   },
+          {
+            "id": 2,
+            "name": "Teclado Ergonômico Avançado",
+            "price": 399.99,
+            "description": "Teclado ergonômico com teclas silenciosas e design confortável para longas horas de uso.",
+            "image": "https://images.pexels.com/photos/7915211/pexels-photo-7915211.jpeg"
+          },
         //   {
         //     "id": 3,
         //     "name": "Mouse Óptico Branco",
@@ -62,43 +72,62 @@ export default function Cart() {
     ]
 
     return (
-        <ContainerComponent>
+
             <Container>
-                <Header />
+                <ContainerComponent>
+                    <Header />
+                    <ContentScrollView>
+                        <InfoView>
+                            <InfoViewProductsCart>
+                                <TotalProductsCart>0</TotalProductsCart>
+                                <TotalProductsCartText>Produtos adicionados</TotalProductsCartText>
+                            </InfoViewProductsCart>
+                            <InfoViewProductCartAdd>
+                                <AddProductCartButton>
+                                    {/* <FontAwesome name="plus" color={'#7e33f7'} size={20} style={{fontFamily: 'Inter_100Thin'}} /> */}
+                                    <AddProductCartButtonText
+                                        onPress={() => navigate.navigate('Home')}
+                                    >
+                                        Adicionar produtos
+                                    </AddProductCartButtonText>
+                                </AddProductCartButton>
+                            </InfoViewProductCartAdd>
+                        </InfoView>
+                        <ProductsAddedContainer>
+                            <ProductsAddedList
+                               scrollEnabled={false}
+                               data={data}
+                               keyExtractor={item => item.id}
+                               renderItem={({item}) => <CartProduct data={item} />}
+                               ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+                            />
+                        </ProductsAddedContainer>
+                    </ContentScrollView>
+                </ContainerComponent>
 
-                <ContentScrollView>
-                    <InfoView>
-                        <InfoViewProductsCart>
-                            <TotalProductsCart>0</TotalProductsCart>
-                            <TotalProductsCartText>Produtos adicionados</TotalProductsCartText>
-                        </InfoViewProductsCart>
+                <TotalCartContainer>
+                    <TotalCart>
+                        <TotalLabel>Total:</TotalLabel>
+                        <Total>R$ 100,00</Total>
+                    </TotalCart>
 
-                        <InfoViewProductCartAdd>
-                            <AddProductCartButton>
-                                {/* <FontAwesome name="plus" color={'#7e33f7'} size={20} style={{fontFamily: 'Inter_100Thin'}} /> */}
-                                <AddProductCartButtonText
-                                    onPress={() => navigate.navigate('Home')}
-                                >
-                                    Adicionar produtos
-                                </AddProductCartButtonText>
-                            </AddProductCartButton>
-                        </InfoViewProductCartAdd>
-                    </InfoView>
+                    <CupomArea>
+                        <CupomButton>
+                            <CupomButtonText>
+                                <FontAwesome name="tag" /> Adicionar cupom
+                            </CupomButtonText>
+                        </CupomButton>
+                    </CupomArea>
 
-                    <ProductsAddedContainer>
-                        <ProductsAddedList 
-                           scrollEnabled={false}
-                           data={data}
-                           keyExtractor={item => item.id}
-                           renderItem={({item}) => <CartProduct data={item} />}
-                        />
-                    </ProductsAddedContainer>
-
+                    <ButtonCartPurchase
                     
-
-                </ContentScrollView>
+                    >
+                        <ButtonCartPurchaseText>
+                            Comprar
+                        </ButtonCartPurchaseText>
+                    </ButtonCartPurchase>
+                </TotalCartContainer>
 
             </Container>
-        </ContainerComponent>
     )
 }

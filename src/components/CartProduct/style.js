@@ -37,9 +37,7 @@ export const ProductPrice = styled.Text`
 `;
 
 export const ProductRightContainer = styled.View`
-    /* width: 33%; */
     height: 100%;
-    /* background-color: red; */
     flex-direction: row;
     align-items: center;
     gap: 5px;
