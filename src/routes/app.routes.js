@@ -89,7 +89,7 @@ export default function AppRoutes(){
                     tabBarIcon: ({color, size}) => {
                         return <FontAwesome name="shopping-cart" color={color} size={size} />
                     },
-                    tabBarBadge: cartAmount,
+                    tabBarBadge: cartAmount > 0 ? cartAmount : null,
                     tabBarBadgeStyle: {
                         color: 'white',
                         backgroundColor: '#7e33f7',
