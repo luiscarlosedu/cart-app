@@ -1,6 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useContext} from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+
+import { CartContext } from "../contexts/CartContext";
 
 import { 
     useFonts,
@@ -24,6 +26,7 @@ const AppTabs = createBottomTabNavigator();
 SplashScreen.preventAutoHideAsync()
 
 export default function AppRoutes(){
+    const { cartAmount } = useContext(CartContext);
 
     const [loaded, error] = useFonts({
         Inter_900Black,
@@ -86,7 +89,7 @@ export default function AppRoutes(){
                     tabBarIcon: ({color, size}) => {
                         return <FontAwesome name="shopping-cart" color={color} size={size} />
                     },
-                    tabBarBadge: 2,
+                    tabBarBadge: cartAmount,
                     tabBarBadgeStyle: {
                         color: 'white',
                         backgroundColor: '#7e33f7',

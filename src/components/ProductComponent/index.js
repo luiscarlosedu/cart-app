@@ -12,7 +12,7 @@ import {
     ItemCartBtnText
 } from "./styles";
 
-export function ProductComponent({ data }) {
+export function ProductComponent({ data, addToCart }) {
     return (
         <ItemView>
             <ItemImage source={
@@ -26,7 +26,9 @@ export function ProductComponent({ data }) {
                 })}</ItemPrice>
             </ItemViewContent>
             <ItemViewCartBtn>
-                <ItemCartBtn>
+                <ItemCartBtn
+                    onPress={addToCart}
+                >
                     <FontAwesome name="shopping-cart" color={"#fff"} />
                     <ItemCartBtnText>
                         Adicionar ao carrinho
