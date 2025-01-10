@@ -4,7 +4,7 @@ export const CartContext = createContext({});
 
 export default function CartProvider({children}) {
     const [cart, setCart] = useState([]);
-    const [total, setTotal] = useState('');
+    const [total, setTotal] = useState();
 
     function addItemCart(newItem) {
         const indexItem = cart.findIndex(item => item.id === newItem.id);
@@ -16,6 +16,7 @@ export default function CartProvider({children}) {
             cartList[indexItem].total = cartList[indexItem].amount * cartList[indexItem].price;
             
             setCart(cartList);
+            handleTotalCart(cartList);
             return;
         }
 
@@ -27,6 +28,7 @@ export default function CartProvider({children}) {
 
         const cartList = [...cart, data];
         setCart(cartList);
+        handleTotalCart(cartList);
     }
 
     function removeItemCart(item) {
@@ -39,11 +41,19 @@ export default function CartProvider({children}) {
             cartList[indexItem].total = cartList[indexItem].total - cartList[indexItem].price;
             
             setCart(cartList);
+            handleTotalCart(cartList);
             return;
         }
 
         const removeItem = cart.filter(product => product.id !== item.id);
         setCart(removeItem);
+        handleTotalCart(removeItem);
+    }
+
+    function handleTotalCart(items) {
+        let cartList = items;
+        let result = cartList.reduce((acc, obj) => { return acc + obj.total }, 0);
+        setTotal(result);
     }
 
     return (

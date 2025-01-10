@@ -36,7 +36,7 @@ import { NoProducts } from "../../components/NoProducts";
 
 export default function Cart() {
     const navigate = useNavigation();
-    const { cart, cartAmount, addItemCart, removeItemCart } = useContext(CartContext);
+    const { cart, cartAmount, addItemCart, removeItemCart, total } = useContext(CartContext);
 
     function handleAddItemCart(item) {
         addItemCart(item);
@@ -99,7 +99,10 @@ export default function Cart() {
                     <TotalCartContainer>
                     <TotalCart>
                         <TotalLabel>Total:</TotalLabel>
-                        <Total>R$ 100,00</Total>
+                        <Total>{total.toLocaleString('pt-br', {
+                            style: 'currency',
+                            currency: 'BRL'
+                        })}</Total>
                     </TotalCart>
 
                     <CupomArea>

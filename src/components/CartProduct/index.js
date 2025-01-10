@@ -32,6 +32,14 @@ export function CartProduct({data, addToCart, removeFromCart}) {
         setAmount(item => item - 1);
     }
 
+    function formatTotalProduct(price) {
+        const resultTotal = price * amount;
+        return resultTotal.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+    }
+
     return (
         <Container>
             <ProductLeftContainer>
@@ -40,10 +48,7 @@ export function CartProduct({data, addToCart, removeFromCart}) {
 
                 <ProductLeftTextContent>
                     <ProductTitle>{data.name}</ProductTitle>
-                    <ProductPrice>{data?.price.toLocaleString('pt-br', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    })}</ProductPrice>
+                    <ProductPrice>{formatTotalProduct(data?.price)}</ProductPrice>
                 </ProductLeftTextContent>
 
             </ProductLeftContainer>
