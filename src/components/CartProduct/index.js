@@ -1,5 +1,4 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import {
     Container,
@@ -16,7 +15,31 @@ import {
     ProductAmount
 } from './style';
 
-export function CartProduct({data}) {
+export function CartProduct({data, addToCart, removeFromCart}) {
+    const [amount, setAmount] = useState(data?.amount);
+
+    function handleIncrease() {
+        addToCart();
+        setAmount(item => item + 1);
+    }
+
+    function handleDecrease() {
+        if (amount === 0) {
+            setAmount(0);
+            return;
+        }
+        removeFromCart();
+        setAmount(item => item - 1);
+    }
+
+    function formatTotalProduct(price) {
+        const resultTotal = price * amount;
+        return resultTotal.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+    }
+
     return (
         <Container>
             <ProductLeftContainer>
@@ -25,24 +48,25 @@ export function CartProduct({data}) {
 
                 <ProductLeftTextContent>
                     <ProductTitle>{data.name}</ProductTitle>
-                    <ProductPrice>{data?.price.toLocaleString('pt-br', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    })}</ProductPrice>
+                    <ProductPrice>{formatTotalProduct(data?.price)}</ProductPrice>
                 </ProductLeftTextContent>
 
             </ProductLeftContainer>
 
             <ProductRightContainer>
-                <LessButtonCart>
+                <LessButtonCart
+                    onPress={handleDecrease}
+                >
                     <LessButtonCartText>
                         <FontAwesome name="minus" size={18} />
                     </LessButtonCartText>
                 </LessButtonCart>
 
-                <ProductAmount>2</ProductAmount>
+                <ProductAmount>{amount}</ProductAmount>
 
-                <MoreButtonCart>
+                <MoreButtonCart
+                    onPress={handleIncrease}
+                >
                     <MoreButtonCartText>
                         <FontAwesome name="plus" size={18} />
                     </MoreButtonCartText>

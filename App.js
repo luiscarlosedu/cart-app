@@ -6,10 +6,15 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import Routes from "./src/routes";
 
+import CartProvider from "./src/contexts/CartContext";
+
 export default function App() {
   return (
     <NavigationContainer>
-      <Routes />
+      <CartProvider>
+        <StatusBar backgroundColor="#fff" barStyle='dark-content' />
+        <Routes />
+      </CartProvider>
     </NavigationContainer>
   );
 }

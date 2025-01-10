@@ -65,7 +65,7 @@ export const ProductsAreaContainer = styled.View`
 `;
 
 export const ProductList = styled.FlatList`
-    
+    margin-bottom: 10px;
 `;
 
 

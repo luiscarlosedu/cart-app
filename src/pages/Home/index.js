@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, ScrollView } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
@@ -21,11 +21,14 @@ import {
     ProductList
 } from "./styles";
 
+import { CartContext } from "../../contexts/CartContext";
+
 import { Header } from "../../components/HomeHeader";
 import { ContainerComponent } from "../../components/ContainerComponent";
 import { ProductComponent } from "../../components/ProductComponent";
 
 export default function Home() {
+    const { addItemCart } = useContext(CartContext);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -35,6 +38,10 @@ export default function Home() {
     async function loadProducts() {
         const productsRequest = await api.get('/produtos');
         setProducts(productsRequest.data);
+    }
+
+    function handleAddItemCart(item) {
+        addItemCart(item);
     }
     
     return (
@@ -68,10 +75,10 @@ export default function Home() {
                                 numColumns={2}
                                 data={products}
                                 keyExtractor={item => item.id}
-                                renderItem={({ item }) => <ProductComponent data={item}/>}
+                                renderItem={({ item }) => <ProductComponent data={item} addToCart={() => handleAddItemCart(item)} />}
                                 columnWrapperStyle={{
                                     justifyContent: 'space-between',
-                                    gap: 5  // Ajusta o gap horizontal entre os itens
+                                    gap: 5
                                 }}
                                 ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
                             />

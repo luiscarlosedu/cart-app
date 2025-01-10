@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
@@ -27,6 +27,8 @@ import {
     CupomButtonText
 } from "./style";
 
+import { CartContext } from "../../contexts/CartContext";
+
 import { ContainerComponent } from "../../components/ContainerComponent";
 import { Header } from "../../components/HomeHeader";
 import { CartProduct } from "../../components/CartProduct";
@@ -34,22 +36,15 @@ import { NoProducts } from "../../components/NoProducts";
 
 export default function Cart() {
     const navigate = useNavigation();
-    const data = [
-        {
-            "id": 1,
-            "name": "Teclado Mecânico Compacto",
-            "price": 299.99,
-            "description": "Teclado mecânico compacto com iluminação RGB personalizável, ideal para jogos e produtividade.",
-            "image": "https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg"
-          },
-          {
-            "id": 2,
-            "name": "Teclado Ergonômico Avançado",
-            "price": 399.99,
-            "description": "Teclado ergonômico com teclas silenciosas e design confortável para longas horas de uso.",
-            "image": "https://images.pexels.com/photos/7915211/pexels-photo-7915211.jpeg"
-          },
-    ]
+    const { cart, cartAmount, addItemCart, removeItemCart, total } = useContext(CartContext);
+
+    function handleAddItemCart(item) {
+        addItemCart(item);
+    }
+
+    function handleRemoveItemCart(item) {
+        removeItemCart(item);
+    }
 
     return (
             <Container>
@@ -60,8 +55,10 @@ export default function Cart() {
                     >
                         <InfoView>
                             <InfoViewProductsCart>
-                                <TotalProductsCart>{data.length}</TotalProductsCart>
-                                <TotalProductsCartText>Produtos adicionados</TotalProductsCartText>
+                                <TotalProductsCart>{cartAmount}</TotalProductsCart>
+                                <TotalProductsCartText>
+                                    {cartAmount !== 1 ? 'Produtos adicionados' : 'Produto adicionado'}
+                                </TotalProductsCartText>
                             </InfoViewProductsCart>
                             <InfoViewProductCartAdd>
                                 <AddProductCartButton>
@@ -74,13 +71,19 @@ export default function Cart() {
                             </InfoViewProductCartAdd>
                         </InfoView>
                         
-                        {data.length !== 0 && (
+                        {cartAmount !== 0 && (
                             <ProductsAddedContainer>
                                 <ProductsAddedList
                                     scrollEnabled={false}
-                                    data={data}
+                                    data={cart}
                                     keyExtractor={item => item.id}
-                                    renderItem={({item}) => <CartProduct data={item} />}
+                                    renderItem={({item}) => (
+                                        <CartProduct 
+                                            data={item} 
+                                            addToCart={() => handleAddItemCart(item)} 
+                                            removeFromCart={() => handleRemoveItemCart(item)} 
+                                        />
+                                    )}
                                     ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
                                 />
                             </ProductsAddedContainer>
@@ -88,15 +91,18 @@ export default function Cart() {
                     </ContentScrollView>
 
                     
-                    {data.length === 0 && <NoProducts/>}
+                    {cartAmount === 0 && <NoProducts/>}
 
                 </ContainerComponent>
 
-                {data.length !== 0 && (
+                {cartAmount !== 0 && (
                     <TotalCartContainer>
                     <TotalCart>
                         <TotalLabel>Total:</TotalLabel>
-                        <Total>R$ 100,00</Total>
+                        <Total>{total.toLocaleString('pt-br', {
+                            style: 'currency',
+                            currency: 'BRL'
+                        })}</Total>
                     </TotalCart>
 
                     <CupomArea>
